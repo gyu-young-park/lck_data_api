@@ -15,6 +15,9 @@ FROM gcr.io/distroless/base-debian10
 WORKDIR /
 
 COPY --from=build /main /main
+COPY --from=build /app/all-match.json .
+COPY --from=build /app/all-season.json .
+COPY --from=build /app/all-team.json .
 
 EXPOSE 8080
 
