@@ -12,8 +12,8 @@ import (
 	"github.com/gyu-young-park/lck_data_api/repository"
 )
 
-const HTTP_ROUTER_PREFIX_V1 = "/api/v1"
-const HTTP_SERVER_PORT = ":8888"
+const HTTP_ROUTER_PREFIX_V1 = "/v1"
+const HTTP_SERVER_PORT = ":8080"
 
 type Server struct {
 	repo         repository.Repository
