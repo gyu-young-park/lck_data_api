@@ -9,6 +9,7 @@ start:
 	docker run -d --name $(LCK_DATE_API_NAME) -p 8000:8080 $(LCK_DATE_API_IMAGE_TAG)
 
 clean:
+	make stop
 	docker rm $(LCK_DATE_API_NAME)
 
 stop:
