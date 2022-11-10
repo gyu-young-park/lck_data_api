@@ -18,8 +18,8 @@ func NewHandler(repo repository.Repository) *Handler {
 func (h *Handler) getAllMatch(res http.ResponseWriter, req *http.Request) {
 	data, err := h.repo.Get(string(repository.ALL_MATCH))
 	if err != nil {
-		responser.Response(res, http.StatusInternalServerError, "Error in server, Can't get server data\n")
+		responser.ResponseJSON(res, http.StatusInternalServerError, "Error in server, Can't get server data\n")
 		return
 	}
-	responser.Response(res, http.StatusOK, data)
+	responser.ResponseJSON(res, http.StatusOK, data)
 }

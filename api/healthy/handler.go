@@ -14,5 +14,5 @@ func NewHandler() *Handler {
 }
 
 func (h *Handler) health(res http.ResponseWriter, req *http.Request) {
-	responser.Response(res, http.StatusOK, "Healthy check success!\n")
+	responser.ResponseJSON(res, http.StatusOK, "Healthy check success!\n")
 }

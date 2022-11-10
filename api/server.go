@@ -16,8 +16,8 @@ const HTTP_ROUTER_PREFIX_V1 = "/v1"
 const HTTP_SERVER_PORT = ":8080"
 
 type Server struct {
-	repo         repository.Repository
-	router       *mux.Router
+	repo   repository.Repository
+	router *mux.Router
 }
 
 func NewHTTPServer() *Server {
@@ -34,7 +34,6 @@ func (server *Server) setUpRoute() {
 	lckteam.NewRouter(server.repo).Route(server.router)
 	lckseason.NewRouter(server.repo).Route(server.router)
 }
-
 func (server *Server) StartServer() {
 	fmt.Println("start server!")
 	server.setUpRoute()
