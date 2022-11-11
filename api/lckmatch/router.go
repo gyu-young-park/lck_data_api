@@ -19,5 +19,5 @@ func NewRouter(repo repository.Repository) *Router {
 
 func (r *Router) Route(mux *mux.Router) {
 	subRouter := mux.PathPrefix(HTTP_ROUTER_PREFIX_LCK_MATCH).Subrouter()
-	subRouter.HandleFunc("/", r.handler.getAllMatch).Methods(http.MethodGet)
+	subRouter.HandleFunc("", r.handler.getAllMatch).Methods(http.MethodGet)
 }

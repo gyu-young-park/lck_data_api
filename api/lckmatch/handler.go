@@ -1,9 +1,11 @@
 package lckmatch
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gyu-young-park/lck_data_api/api/responser"
+	"github.com/gyu-young-park/lck_data_api/firebaseapi"
 	"github.com/gyu-young-park/lck_data_api/repository"
 )
 
@@ -16,6 +18,17 @@ func NewHandler(repo repository.Repository) *Handler {
 }
 
 func (h *Handler) getAllMatch(res http.ResponseWriter, req *http.Request) {
+	query := req.URL.Query()
+	option := firebaseapi.NewReadMatchQueryOption(
+		query.Get("season"),
+		query.Get("team"),
+		query.Get("result"),
+		query.Get("sortOption"),
+		query.Get("start"),
+		query.Get("end"),
+	)
+	fmt.Println(option)
+
 	data, err := h.repo.Get(string(repository.ALL_MATCH))
 	if err != nil {
 		responser.ResponseJSON(res, http.StatusInternalServerError, "Error in server, Can't get server data\n")

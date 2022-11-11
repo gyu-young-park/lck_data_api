@@ -9,6 +9,7 @@ func defaultAllCorsSetting(res http.ResponseWriter) {
 	res.Header().Set("Access-Control-Allow-Origin", "*")
 	res.Header().Set("Access-Control-Max-Age", "15")
 	res.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+	res.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 }
 
 func ResponseJSON(res http.ResponseWriter, stateCode int, msg string, arg ...string) {

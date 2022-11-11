@@ -32,3 +32,7 @@ http://localhost:8000/v1/health/
 
 Healthy check success!
 ```
+
+```
+https://lck-data-api.fly.dev/v1/lck-match/?season=Worlds 2021 LCK&team=Hanwha Life&winLose=win&sortOption=업로드 최근 순&start=10&end=20
+```
