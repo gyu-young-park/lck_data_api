@@ -2,16 +2,16 @@ package firebaseapi
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	firebase "firebase.google.com/go"
-	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
 
+var FirebaseAppClinet *FirebaseApp
+
 type FirebaseApp struct {
-	ctx *context.Context
+	ctx context.Context
 	db  *fireStoreClient
 }
 
@@ -27,7 +27,7 @@ func NewFireBaseAPI(secretFirebaseServiceAccountKeyPath string) *FirebaseApp {
 	if err != nil {
 		log.Fatalln("Error initializing app:", err)
 	}
-	firebaseApp.ctx = &ctx
+	firebaseApp.ctx = ctx
 	firebaseApp.db = newFireStoreClient(ctx, app)
 	return firebaseApp
 }
@@ -56,19 +56,8 @@ func NewReadMatchQueryOption(season, team, result, sortOpt, start, end string) *
 	}
 }
 
-func (f *FirebaseApp) ReadMatchWithQueryOption(collection string, opt *ReadMatchQueryOption) []FireStoreDataSchema {
-	var ret []FireStoreDataSchema
-	iter := f.db.client.Collection(collection).Documents(*f.ctx)
-	for {
-		doc, err := iter.Next()
-		if err == iterator.Done {
-			break
-		}
-		if err != nil {
-			fmt.Printf("Failed to iterate %v\n", err)
-			break
-		}
-		ret = append(ret, doc.Data())
-	}
-	return ret
+const LCK_MATCH_VIDEO_COLLECTION = "lck_match_video"
+
+func (f *FirebaseApp) ReadMatchTeamWithQueryOption(opt *ReadMatchQueryOption) []FireStoreDataSchema {
+	return f.db.readMatchTeamWithQueryOption(f.ctx, opt)
 }

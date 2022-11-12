@@ -1,6 +1,7 @@
 package lckmatch
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -29,10 +30,17 @@ func (h *Handler) getAllMatch(res http.ResponseWriter, req *http.Request) {
 	)
 	fmt.Println(option)
 
-	data, err := h.repo.Get(string(repository.ALL_MATCH))
+	// data, err := h.repo.Get(string(repository.ALL_MATCH))
+	// if err != nil {
+	// 	responser.ResponseJSON(res, http.StatusInternalServerError, "Error in server, Can't get server data\n")
+	// 	return
+	// }
+	// responser.ResponseJSON(res, http.StatusOK, data)
+	data := firebaseapi.FirebaseAppClinet.ReadMatchTeamWithQueryOption(option)
+	byteData, err := json.Marshal(data)
 	if err != nil {
 		responser.ResponseJSON(res, http.StatusInternalServerError, "Error in server, Can't get server data\n")
 		return
 	}
-	responser.ResponseJSON(res, http.StatusOK, data)
+	responser.ResponseJSON(res, http.StatusOK, string(byteData))
 }
