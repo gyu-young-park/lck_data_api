@@ -25,8 +25,8 @@ func (h *Handler) getAllMatch(res http.ResponseWriter, req *http.Request) {
 		query.Get("team"),
 		query.Get("result"),
 		query.Get("sortOption"),
-		query.Get("start"),
-		query.Get("end"),
+		query.Get("publishedAt"),
+		query.Get("limit"),
 	)
 	fmt.Println(option)
 

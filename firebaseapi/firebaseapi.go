@@ -37,26 +37,26 @@ func (f *FirebaseApp) Close() {
 }
 
 type ReadMatchQueryOption struct {
-	Season  string
-	Team    string
-	Result  string
-	SortOpt string
-	Start   string
-	End     string
+	Season      string
+	Team        string
+	Result      string
+	SortOpt     string
+	PublishedAt string
+	Limit       string
 }
 
-func NewReadMatchQueryOption(season, team, result, sortOpt, start, end string) *ReadMatchQueryOption {
+func NewReadMatchQueryOption(season, team, result, sortOpt, publishedAt, limit string) *ReadMatchQueryOption {
 	return &ReadMatchQueryOption{
-		Season:  season,
-		Team:    team,
-		Result:  result,
-		SortOpt: sortOpt,
-		Start:   start,
-		End:     end,
+		Season:      season,
+		Team:        team,
+		Result:      result,
+		SortOpt:     sortOpt,
+		PublishedAt: publishedAt,
+		Limit:       limit,
 	}
 }
 
-const LCK_MATCH_VIDEO_COLLECTION = "lck_match_video"
+const LCK_MATCH_COLLECTION = "lck_match"
 
 func (f *FirebaseApp) ReadMatchTeamWithQueryOption(opt *ReadMatchQueryOption) []FireStoreDataSchema {
 	return f.db.readMatchTeamWithQueryOption(f.ctx, opt)
