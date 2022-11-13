@@ -1,6 +1,6 @@
 
 ## Build
-FROM golang:1.16-buster AS build
+FROM golang:1.17-buster AS build
 
 WORKDIR /app
 
@@ -15,9 +15,8 @@ FROM gcr.io/distroless/base-debian10
 WORKDIR /
 
 COPY --from=build /main /main
-COPY --from=build /app/all-match.json .
-COPY --from=build /app/all-season.json .
-COPY --from=build /app/all-team.json .
+COPY --from=build /app/.env /
+COPY --from=build /app/lck-data-project-firebase-adminsdk-x03sw-7009ebcef2.json /
 
 EXPOSE 8080
 
