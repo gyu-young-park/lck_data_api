@@ -52,6 +52,41 @@ func (f *fireStoreClient) limitQuery(ref *firestore.Query, limit int64) *firesto
 	return &query
 }
 
+func (f *fireStoreClient) readTeamWithSeason(ctx context.Context, opt *ReadTeamWithSeasonQueryOption) []FireStoreDataSchema {
+	var ret []FireStoreDataSchema
+	query := &f.client.Collection(LCK_TEAM_WITH_SEASON_COLLECTION).Query
+	if opt.Season != "" {
+		query = f.where(query, "Season", "==", opt.Season)
+	}
+
+	if opt.Team != "" {
+		query = f.where(query, "TeamList", "array-contains", opt.Team)
+	}
+	iter := query.Documents(ctx)
+
+	// if opt.Limit
+	// iter := f.client.Collection(LCK_MATCH_COLLECTION).
+	// 	Where("Season", "==", opt.Season).
+	// 	Where("WinTeam", "==").
+	// 	OrderBy("PublishedAt", firestore.Asc).
+	// 	StartAt("").
+	// 	Limit(10).
+	// 	Documents(ctx)
+	for {
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			fmt.Println(err)
+			return nil
+		}
+		ret = append(ret, doc.Data())
+	}
+	fmt.Println(ret)
+	return ret
+}
+
 func (f *fireStoreClient) readMatchTeamWithQueryOption(ctx context.Context, opt *ReadMatchQueryOption) []FireStoreDataSchema {
 	var ret []FireStoreDataSchema
 	query := &f.client.Collection(LCK_MATCH_COLLECTION).Query
@@ -114,4 +149,22 @@ func (f *fireStoreClient) readMatchTeamWithQueryOption(ctx context.Context, opt 
 	}
 	fmt.Println(ret)
 	return ret
+}
+
+func (f *fireStoreClient) readAllLCKSeason(ctx context.Context) FireStoreDataSchema {
+	dsnap, err := f.client.Collection(LCK_ALL_SEASONS).Doc(LCK_ALL_SEASONS_DOC).Get(ctx)
+	if err != nil {
+		fmt.Println("Error: Can't get season list")
+		return nil
+	}
+	return dsnap.Data()
+}
+
+func (f *fireStoreClient) readAllLCKTeam(ctx context.Context) FireStoreDataSchema {
+	dsnap, err := f.client.Collection(LCK_ALL_TEAMS).Doc(LCK_ALL_TEAMS_DOC).Get(ctx)
+	if err != nil {
+		fmt.Println("Error: Can't get team list")
+		return nil
+	}
+	return dsnap.Data()
 }
