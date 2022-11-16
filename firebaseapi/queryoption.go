@@ -15,12 +15,12 @@ const (
 )
 
 type ReadMatchQueryOption struct {
-	Season      string
-	Team        string
-	Result      string
-	SortOpt     string
-	PublishedAt string
-	Limit       string
+	Season      string `validate:"omitempty"`
+	Team        string `validate:"omitempty"`
+	Result      string `validate:"omitempty,win-lose"`
+	SortOpt     string `validate:"omitempty,sort-opt"`
+	PublishedAt string `validate:"omitempty,parseint"`
+	Limit       string `validate:"omitempty,check-limit"`
 }
 
 func NewReadMatchQueryOption(season, team, result, sortOpt, publishedAt, limit string) *ReadMatchQueryOption {
@@ -35,8 +35,8 @@ func NewReadMatchQueryOption(season, team, result, sortOpt, publishedAt, limit s
 }
 
 type ReadTeamWithSeasonQueryOption struct {
-	Season string
-	Team   string
+	Season string `validate:"omitempty"`
+	Team   string `validate:"omitempty"`
 }
 
 func NewReadTeamWithSeasonQueryOption(season, team string) *ReadTeamWithSeasonQueryOption {

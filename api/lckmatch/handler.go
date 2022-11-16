@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gyu-young-park/lck_data_api/api/responser"
+	"github.com/gyu-young-park/lck_data_api/api/validator"
 	"github.com/gyu-young-park/lck_data_api/firebaseapi"
 	"github.com/gyu-young-park/lck_data_api/repository"
 )
@@ -29,7 +30,12 @@ func (h *Handler) getAllMatch(res http.ResponseWriter, req *http.Request) {
 		query.Get("limit"),
 	)
 	fmt.Println(option)
-
+	err := validator.Client.Validate(option)
+	if err != nil {
+		fmt.Println(err)
+		responser.ResponseJSON(res, http.StatusBadRequest, "Error client request is not valid, please check your request is valid or not\n")
+		return
+	}
 	// data, err := h.repo.Get(string(repository.ALL_MATCH))
 	// if err != nil {
 	// 	responser.ResponseJSON(res, http.StatusInternalServerError, "Error in server, Can't get server data\n")

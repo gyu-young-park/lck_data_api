@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"strings"
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
@@ -95,9 +96,9 @@ func (f *fireStoreClient) readMatchTeamWithQueryOption(ctx context.Context, opt 
 	}
 
 	if opt.Team != "" {
-		if opt.Result == "W" {
+		if strings.ToLower(opt.Result) == "w" {
 			query = f.where(query, "WinTeam", "==", opt.Team)
-		} else if opt.Result == "L" {
+		} else if strings.ToLower(opt.Result) == "l" {
 			query = f.where(query, "LoseTeam", "==", opt.Team)
 		}
 	}
