@@ -28,7 +28,6 @@ func newValidatorClient() *validatorClient {
 
 func (v *validatorClient) setupCustomValidation() {
 	v.validator.RegisterValidation("win-lose", checkIsTeamResultValid)
-	v.validator.RegisterValidation("sort-opt", checkIsSortOptValid)
 	v.validator.RegisterValidation("parseint", checkIsPublishedAtValid)
 	v.validator.RegisterValidation("check-limit", checkIsLimitValid)
 }

@@ -38,6 +38,11 @@ func (f *fireStoreClient) where(ref *firestore.Query, field, condition, match st
 	return &query
 }
 
+func (f *fireStoreClient) whereIn(ref *firestore.Query, field string, match []string) *firestore.Query {
+	query := ref.Where(field, "in", match)
+	return &query
+}
+
 func (f *fireStoreClient) orderBy(ref *firestore.Query, field string, dir firestore.Direction) *firestore.Query {
 	query := ref.OrderBy(field, dir)
 	return &query
@@ -100,13 +105,15 @@ func (f *fireStoreClient) readMatchTeamWithQueryOption(ctx context.Context, opt 
 			query = f.where(query, "WinTeam", "==", opt.Team)
 		} else if strings.ToLower(opt.Result) == "l" {
 			query = f.where(query, "LoseTeam", "==", opt.Team)
+		} else {
+			query = f.where(query, "TeamList", "array-contains", opt.Team)
 		}
 	}
 
-	if opt.SortOpt != "desc" {
-		query = f.orderBy(query, "PublishedAt", firestore.Desc)
-	} else {
+	if opt.SortOpt == "asc" {
 		query = f.orderBy(query, "PublishedAt", firestore.Asc)
+	} else {
+		query = f.orderBy(query, "PublishedAt", firestore.Desc)
 	}
 
 	if opt.PublishedAt != "" {

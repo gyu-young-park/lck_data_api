@@ -18,7 +18,7 @@ type ReadMatchQueryOption struct {
 	Season      string `validate:"omitempty"`
 	Team        string `validate:"omitempty"`
 	Result      string `validate:"omitempty,win-lose"`
-	SortOpt     string `validate:"omitempty,sort-opt"`
+	SortOpt     string `validate:"omitempty"`
 	PublishedAt string `validate:"omitempty,parseint"`
 	Limit       string `validate:"omitempty,check-limit"`
 }
