@@ -9,7 +9,7 @@ import (
 
 func checkIsTeamResultValid(fl validator.FieldLevel) bool {
 	field := strings.ToLower(fl.Field().String())
-	return field == "w" || field == "l"
+	return field == "win" || field == "lose"
 }
 
 func checkIsPublishedAtValid(fl validator.FieldLevel) bool {

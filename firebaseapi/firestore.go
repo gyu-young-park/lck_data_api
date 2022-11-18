@@ -99,11 +99,10 @@ func (f *fireStoreClient) readMatchTeamWithQueryOption(ctx context.Context, opt 
 	if opt.Season != "" {
 		query = f.where(query, "Season", "==", opt.Season)
 	}
-
 	if opt.Team != "" {
-		if strings.ToLower(opt.Result) == "w" {
+		if strings.ToLower(opt.WinLose) == "win" {
 			query = f.where(query, "WinTeam", "==", opt.Team)
-		} else if strings.ToLower(opt.Result) == "l" {
+		} else if strings.ToLower(opt.WinLose) == "lose" {
 			query = f.where(query, "LoseTeam", "==", opt.Team)
 		} else {
 			query = f.where(query, "TeamList", "array-contains", opt.Team)

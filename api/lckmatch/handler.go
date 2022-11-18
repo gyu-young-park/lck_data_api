@@ -24,7 +24,7 @@ func (h *Handler) getAllMatch(res http.ResponseWriter, req *http.Request) {
 	option := firebaseapi.NewReadMatchQueryOption(
 		query.Get("season"),
 		query.Get("team"),
-		query.Get("result"),
+		query.Get("winLose"),
 		query.Get("sortOption"),
 		query.Get("publishedAt"),
 		query.Get("limit"),

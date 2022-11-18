@@ -17,17 +17,17 @@ const (
 type ReadMatchQueryOption struct {
 	Season      string `validate:"omitempty"`
 	Team        string `validate:"omitempty"`
-	Result      string `validate:"omitempty,win-lose"`
+	WinLose     string `validate:"omitempty,win-lose"`
 	SortOpt     string `validate:"omitempty"`
 	PublishedAt string `validate:"omitempty,parseint"`
 	Limit       string `validate:"omitempty,check-limit"`
 }
 
-func NewReadMatchQueryOption(season, team, result, sortOpt, publishedAt, limit string) *ReadMatchQueryOption {
+func NewReadMatchQueryOption(season, team, winLose, sortOpt, publishedAt, limit string) *ReadMatchQueryOption {
 	return &ReadMatchQueryOption{
 		Season:      season,
 		Team:        team,
-		Result:      result,
+		WinLose:     winLose,
 		SortOpt:     sortOpt,
 		PublishedAt: publishedAt,
 		Limit:       limit,
